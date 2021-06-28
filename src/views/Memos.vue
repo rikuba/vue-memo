@@ -63,9 +63,10 @@ import { store } from '../store'
 export default {
   name: 'Memos',
   data () {
-    return {
-      memos: store.getAllMemos()
-    }
+    return store.state
+  },
+  created () {
+    store.load()
   }
 }
 </script>
