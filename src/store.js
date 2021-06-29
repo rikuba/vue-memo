@@ -23,7 +23,7 @@ export const store = {
 
   createMemo () {
     return {
-      id: this.state.nextMemoId++,
+      id: String(this.state.nextMemoId++),
       title: '新規メモ',
       content: '新規メモ'
     }
