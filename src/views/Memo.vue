@@ -1,19 +1,28 @@
 <template>
   <div class="memo">
-    <textarea :value="memo.content" ref="textarea"></textarea>
-    <div class="actions">
-      <button class="edit-button" @click="doUpdate">編集</button>
-      <button class="delete-button" @click="doDestroy">削除</button>
+    <div class="memo-view" v-if="memo">
+      <textarea :value="memo.content" ref="textarea"></textarea>
+      <div class="actions">
+        <button class="edit-button" @click="doUpdate">編集</button>
+        <button class="delete-button" @click="doDestroy">削除</button>
+      </div>
+    </div>
+    <div class="memo-not-found" v-else>
+      <p>メモが見つかりません</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.memo {
-  display: flex;
-  flex-direction: column;
+.memo,
+.memo-view {
   width: 100%;
   height: 100%;
+}
+
+.memo-view {
+  display: flex;
+  flex-direction: column;
 }
 
 textarea {
@@ -50,6 +59,10 @@ button {
 
 .delete-button {
   width: 6rem;
+}
+
+.memo-not-found {
+  text-align: center;
 }
 </style>
 
