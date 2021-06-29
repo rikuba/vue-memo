@@ -89,8 +89,10 @@ export default {
       store.updateMemo(this.memo.id, { content })
     },
     doDestroy () {
-      store.removeMemo(this.memo.id)
-      this.$router.push({ name: 'Memos' })
+      if (confirm('メモを削除してよろしいですか')) {
+        store.removeMemo(this.memo.id)
+        this.$router.push({ name: 'Memos' })
+      }
     }
   }
 }
