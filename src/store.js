@@ -55,7 +55,7 @@ export const store = {
 
   updateMemo (id, { content }) {
     const memo = this.getMemo(id)
-    const title = /.+/.exec(content)?.[0] ?? ''
+    const title = /.*/.exec(content)[0]
     Object.assign(memo, { title, content })
     this.storage.save(this.state)
   },
