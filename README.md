@@ -1,5 +1,9 @@
 # vue-memo
 
+## Example
+
+https://rikuba.com/vue-memo/
+
 ## Project setup
 ```
 npm install
