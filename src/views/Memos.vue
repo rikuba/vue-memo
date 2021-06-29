@@ -29,7 +29,8 @@
 
 .memo-list-container {
   flex: 1;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .memo-detail-container {
@@ -44,6 +45,7 @@
   list-style: none;
   margin: 10px 0 0;
   padding: 0;
+  overflow: auto;
 }
 
 .memo-link {

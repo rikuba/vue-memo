@@ -42,6 +42,7 @@ h1 a {
 .container {
   flex: 1;
   max-height: 60em;
+  overflow: hidden;
   margin-bottom: 20px;
   background: #fff;
   box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.2);
