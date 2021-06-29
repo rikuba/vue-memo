@@ -55,13 +55,17 @@
   color: #0063a4;
 }
 
-.memo-link.router-link-exact-active {
+.memo-link:hover {
+  background: #f4f5f6;
+}
+
+.router-link-exact-active {
   color: inherit;
   text-decoration: inherit;
 }
 
-.memo-link:not(.router-link-exact-active):hover {
-  background: #f4f5f6;
+.router-link-exact-active:hover {
+  background: transparent;
 }
 
 .actions {
