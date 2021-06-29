@@ -9,9 +9,7 @@
         </li>
       </ul>
     </div>
-    <div class="memo-detail-container">
-      <router-view />
-    </div>
+    <div class="memo-detail-container"><router-view /></div>
   </div>
 </template>
 
@@ -24,12 +22,16 @@
 }
 
 .memo-list-container {
-  width: 25%;
-  font-size: 0.875rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .memo-detail-container {
-  flex: 1;
+  width: 70%;
+}
+
+.memo-detail-container:empty {
+  display: none;
 }
 
 .memo-list {

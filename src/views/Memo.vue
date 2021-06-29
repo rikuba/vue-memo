@@ -27,6 +27,11 @@ textarea {
   line-height: 1.5;
 }
 
+textarea:focus-visible {
+  outline: none;
+  border-color: #0080d5;
+}
+
 .actions {
   display: flex;
   flex-direction: row;
