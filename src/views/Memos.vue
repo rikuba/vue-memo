@@ -4,7 +4,7 @@
       <ul class="memo-list">
         <li class="memo-list-item" v-for="memo in memos" :key="memo.id">
           <router-link class="memo-link" :to="{ name: 'Memo', params: { memoId: memo.id } }">
-            {{ memo.title }}
+            {{ memo.title || '(無題)' }}
           </router-link>
         </li>
       </ul>
