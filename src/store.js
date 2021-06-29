@@ -4,7 +4,8 @@ export const store = {
   storage,
 
   state: {
-    memos: []
+    memos: [],
+    nextMemoId: 0
   },
 
   load () {
@@ -18,6 +19,19 @@ export const store = {
 
   getMemo (id) {
     return this.state.memos.find((memo) => memo.id === id)
+  },
+
+  createMemo () {
+    return {
+      id: this.state.nextMemoId++,
+      title: '新規メモ',
+      content: '新規メモ'
+    }
+  },
+
+  saveMemo (memo) {
+    this.state.memos.push(memo)
+    this.storage.save(this.state)
   },
 
   updateMemo (id, { content }) {

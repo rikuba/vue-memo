@@ -8,6 +8,12 @@
           </router-link>
         </li>
       </ul>
+      <div class="actions">
+        <button class="add-button" @click="doAdd">
+          &#x2795;&#xFE0E;
+          <span class="add-button-label">メモを追加</span>
+        </button>
+      </div>
     </div>
     <div class="memo-detail-container"><router-view /></div>
   </div>
@@ -57,6 +63,35 @@
 .memo-link:not(.router-link-exact-active):hover {
   background: #f4f5f6;
 }
+
+.actions {
+  margin: 0 0 10px;
+}
+
+.add-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  text-align: start;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.add-button:hover,
+.add-button:focus {
+  background: #f4f5f6;
+}
+
+.add-button-label {
+  visibility: hidden;
+}
+
+.add-button:hover .add-button-label,
+.add-button:focus .add-button-label {
+  visibility: visible;
+}
 </style>
 
 <script>
@@ -69,6 +104,13 @@ export default {
   },
   created () {
     store.load()
+  },
+  methods: {
+    doAdd () {
+      const memo = store.createMemo()
+      store.saveMemo(memo)
+      this.$router.push({ name: 'Memo', params: { memoId: memo.id } })
+    }
   }
 }
 </script>
