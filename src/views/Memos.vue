@@ -1,5 +1,5 @@
 <template>
-  <div class="memos">
+  <div class="memos" :class="{ 'list-only': $route.name === 'Memos' }">
     <div class="memo-list-container">
       <ul class="memo-list">
         <li class="memo-list-item" v-for="memo in memos" :key="memo.id">
@@ -15,7 +15,9 @@
         </button>
       </div>
     </div>
-    <div class="memo-detail-container"><router-view /></div>
+    <div class="memo-detail-container">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -28,17 +30,17 @@
 }
 
 .memo-list-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  width: 30%;
+}
+
+.list-only .memo-list-container {
+  width: 100%;
 }
 
 .memo-detail-container {
-  width: 70%;
-}
-
-.memo-detail-container:empty {
-  display: none;
+  flex: 1;
 }
 
 .memo-list {
