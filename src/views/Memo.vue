@@ -13,6 +13,51 @@
   </div>
 </template>
 
+<script>
+import { store } from '../store'
+
+export default {
+  name: 'Memo',
+  data () {
+    return {
+      memo: { content: '' }
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.memo = store.getMemo(to.params.memoId)
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.memo = store.getMemo(to.params.memoId)
+    next()
+  },
+  mounted () {
+    this.focusTextarea()
+  },
+  updated () {
+    this.focusTextarea()
+  },
+  methods: {
+    focusTextarea () {
+      const textarea = this.$refs.textarea
+      textarea.focus()
+      textarea.setSelectionRange(0, 0)
+    },
+    doUpdate () {
+      const content = this.$refs.textarea.value
+      store.updateMemo(this.memo.id, { content })
+    },
+    doDestroy () {
+      if (confirm('メモを削除してよろしいですか')) {
+        store.removeMemo(this.memo.id)
+        this.$router.push({ name: 'Memos' })
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
 .memo,
 .memo-view {
@@ -65,48 +110,3 @@ button {
   text-align: center;
 }
 </style>
-
-<script>
-import { store } from '../store'
-
-export default {
-  name: 'Memo',
-  data () {
-    return {
-      memo: { content: '' }
-    }
-  },
-  beforeRouteEnter (to, from, next) {
-    next((vm) => {
-      vm.memo = store.getMemo(to.params.memoId)
-    })
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.memo = store.getMemo(to.params.memoId)
-    next()
-  },
-  mounted () {
-    this.focusTextarea()
-  },
-  updated () {
-    this.focusTextarea()
-  },
-  methods: {
-    focusTextarea () {
-      const textarea = this.$refs.textarea
-      textarea.focus()
-      textarea.setSelectionRange(0, 0)
-    },
-    doUpdate () {
-      const content = this.$refs.textarea.value
-      store.updateMemo(this.memo.id, { content })
-    },
-    doDestroy () {
-      if (confirm('メモを削除してよろしいですか')) {
-        store.removeMemo(this.memo.id)
-        this.$router.push({ name: 'Memos' })
-      }
-    }
-  }
-}
-</script>

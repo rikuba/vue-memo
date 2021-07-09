@@ -21,6 +21,27 @@
   </div>
 </template>
 
+<script>
+import { store } from '../store'
+
+export default {
+  name: 'Memos',
+  data () {
+    return store.state
+  },
+  created () {
+    store.load()
+  },
+  methods: {
+    doAdd () {
+      const memo = store.createMemo()
+      store.saveMemo(memo)
+      this.$router.push({ name: 'Memo', params: { memoId: memo.id } })
+    }
+  }
+}
+</script>
+
 <style scoped>
 .memos {
   display: flex;
@@ -101,24 +122,3 @@
   visibility: visible;
 }
 </style>
-
-<script>
-import { store } from '../store'
-
-export default {
-  name: 'Memos',
-  data () {
-    return store.state
-  },
-  created () {
-    store.load()
-  },
-  methods: {
-    doAdd () {
-      const memo = store.createMemo()
-      store.saveMemo(memo)
-      this.$router.push({ name: 'Memo', params: { memoId: memo.id } })
-    }
-  }
-}
-</script>
