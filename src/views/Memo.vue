@@ -1,13 +1,13 @@
 <template>
   <div class="memo">
-    <div class="memo-view" v-if="memo">
-      <textarea :value="memo.content" ref="textarea"></textarea>
+    <div v-if="memo" class="memo-view">
+      <textarea ref="textarea" :value="memo.content"></textarea>
       <div class="actions">
         <button class="edit-button" @click="doUpdate">編集</button>
         <button class="delete-button" @click="doDestroy">削除</button>
       </div>
     </div>
-    <div class="memo-not-found" v-else>
+    <div v-else class="memo-not-found">
       <p>メモが見つかりません</p>
     </div>
   </div>

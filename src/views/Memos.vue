@@ -2,8 +2,8 @@
   <div class="memos" :class="{ 'list-only': $route.name === 'Memos' }">
     <div class="memo-list-container">
       <ul class="memo-list">
-        <li class="memo-list-item" v-for="memo in memos" :key="memo.id">
-          <router-link class="memo-link" :to="{ name: 'Memo', params: { memoId: memo.id } }">
+        <li v-for="memo in memos" :key="memo.id" class="memo-list-item">
+          <router-link :to="{ name: 'Memo', params: { memoId: memo.id } }" class="memo-link">
             {{ memo.title || '(無題)' }}
           </router-link>
         </li>
