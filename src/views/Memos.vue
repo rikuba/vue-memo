@@ -2,8 +2,8 @@
   <div class="memos" :class="{ 'list-only': $route.name === 'Memos' }">
     <div class="memo-list-container">
       <ul class="memo-list">
-        <li class="memo-list-item" v-for="memo in memos" :key="memo.id">
-          <router-link class="memo-link" :to="{ name: 'Memo', params: { memoId: memo.id } }">
+        <li v-for="memo in memos" :key="memo.id" class="memo-list-item">
+          <router-link :to="{ name: 'Memo', params: { memoId: memo.id } }" class="memo-link">
             {{ memo.title || '(無題)' }}
           </router-link>
         </li>
@@ -20,6 +20,27 @@
     </div>
   </div>
 </template>
+
+<script>
+import { store } from '../store'
+
+export default {
+  name: 'Memos',
+  data () {
+    return store.state
+  },
+  created () {
+    store.load()
+  },
+  methods: {
+    doAdd () {
+      const memo = store.createMemo()
+      store.saveMemo(memo)
+      this.$router.push({ name: 'Memo', params: { memoId: memo.id } })
+    }
+  }
+}
+</script>
 
 <style scoped>
 .memos {
@@ -101,24 +122,3 @@
   visibility: visible;
 }
 </style>
-
-<script>
-import { store } from '../store'
-
-export default {
-  name: 'Memos',
-  data () {
-    return store.state
-  },
-  created () {
-    store.load()
-  },
-  methods: {
-    doAdd () {
-      const memo = store.createMemo()
-      store.saveMemo(memo)
-      this.$router.push({ name: 'Memo', params: { memoId: memo.id } })
-    }
-  }
-}
-</script>

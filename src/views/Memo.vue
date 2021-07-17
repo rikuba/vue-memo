@@ -1,17 +1,62 @@
 <template>
   <div class="memo">
-    <div class="memo-view" v-if="memo">
-      <textarea :value="memo.content" ref="textarea"></textarea>
+    <div v-if="memo" class="memo-view">
+      <textarea ref="textarea" :value="memo.content"></textarea>
       <div class="actions">
         <button class="edit-button" @click="doUpdate">編集</button>
         <button class="delete-button" @click="doDestroy">削除</button>
       </div>
     </div>
-    <div class="memo-not-found" v-else>
+    <div v-else class="memo-not-found">
       <p>メモが見つかりません</p>
     </div>
   </div>
 </template>
+
+<script>
+import { store } from '../store'
+
+export default {
+  name: 'Memo',
+  data () {
+    return {
+      memo: { content: '' }
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.memo = store.getMemo(to.params.memoId)
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.memo = store.getMemo(to.params.memoId)
+    next()
+  },
+  mounted () {
+    this.focusTextarea()
+  },
+  updated () {
+    this.focusTextarea()
+  },
+  methods: {
+    focusTextarea () {
+      const textarea = this.$refs.textarea
+      textarea.focus()
+      textarea.setSelectionRange(0, 0)
+    },
+    doUpdate () {
+      const content = this.$refs.textarea.value
+      store.updateMemo(this.memo.id, { content })
+    },
+    doDestroy () {
+      if (confirm('メモを削除してよろしいですか')) {
+        store.removeMemo(this.memo.id)
+        this.$router.push({ name: 'Memos' })
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .memo,
@@ -65,48 +110,3 @@ button {
   text-align: center;
 }
 </style>
-
-<script>
-import { store } from '../store'
-
-export default {
-  name: 'Memo',
-  data () {
-    return {
-      memo: { content: '' }
-    }
-  },
-  beforeRouteEnter (to, from, next) {
-    next((vm) => {
-      vm.memo = store.getMemo(to.params.memoId)
-    })
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.memo = store.getMemo(to.params.memoId)
-    next()
-  },
-  mounted () {
-    this.focusTextarea()
-  },
-  updated () {
-    this.focusTextarea()
-  },
-  methods: {
-    focusTextarea () {
-      const textarea = this.$refs.textarea
-      textarea.focus()
-      textarea.setSelectionRange(0, 0)
-    },
-    doUpdate () {
-      const content = this.$refs.textarea.value
-      store.updateMemo(this.memo.id, { content })
-    },
-    doDestroy () {
-      if (confirm('メモを削除してよろしいですか')) {
-        store.removeMemo(this.memo.id)
-        this.$router.push({ name: 'Memos' })
-      }
-    }
-  }
-}
-</script>
